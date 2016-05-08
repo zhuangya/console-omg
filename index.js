@@ -24,7 +24,6 @@ function omg (msg, styleArray) {
 function randomStyle () {
   var randomColor = smartPick(colors)
   var result = [randomColor, smartPick(bgColors, prependPrefix(randomColor)), smartPick(styles)];
-  console.log(result)
   return result
 }
 
