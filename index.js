@@ -2,8 +2,14 @@
 
 var chalk = require('chalk')
 
-function omg (msg, styleArray) {
+var colors = [ 'black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white' ]
+var bgColors = colors.map(function (c) {
+  return prependPrefix(c);
+})
+var styles = [ 'bold', 'dim', 'italic', 'underline', 'hidden', 'strikethrough' ]
 
+
+function omg (msg, styleArray) {
   var styleFunc = (styleArray || randomStyle()).reduce(function (soFar, current) {
     return soFar[current]
   }, chalk)
@@ -16,17 +22,11 @@ function omg (msg, styleArray) {
 }
 
 function randomStyle () {
-  var colors = [ 'black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white', 'gray' ]
-  var bgColors = colors.map(function (c) {
-    return prependPrefix(c);
-  })
-  var styles = [ 'reset', 'bold', 'dim', 'italic', 'underline', 'inverse', 'hidden', 'strikethrough' ]
-
   var randomColor = smartPick(colors)
-
-  return [randomColor, smartPick(colors, prependPrefix(randomColor)), smartPick(styles)];
+  var result = [randomColor, smartPick(bgColors, prependPrefix(randomColor)), smartPick(styles)];
+  console.log(result)
+  return result
 }
-
 
 function prependPrefix (source, prefix) {
   prefix = prefix || 'bg'
@@ -41,8 +41,10 @@ function smartPick (source, exception) {
   }
 
   if (exception) {
-    source.splice(exception, source.indexOf(exception))
-    return smartPick(source)
+    var exSource = source.filter(function (current) {
+      return current !== exception
+    })
+    return smartPick(exSource)
   }
 
   var currentRandomIndex = Math.floor(Math.random() * length)
