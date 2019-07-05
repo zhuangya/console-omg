@@ -1,5 +1,7 @@
 #console.omg
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/zhuangya/console-omg.svg)](https://greenkeeper.io/)
+
 usage:
 
 
